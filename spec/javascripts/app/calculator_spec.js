@@ -1,4 +1,13 @@
 define(function() {
+  jasmine.createSpyClass = function(className, methods) {
+    var constructor = jasmine.createSpy(className);
+    var instance = jasmine.createSpyObj(className.toLowerCase(), methods);
+    constructor.and.returnValue(instance);
+
+    instance.constructor = constructor;
+    return instance;
+  };
+
   var mock = function(name) {
     return {
       using: function(spy) {
@@ -13,12 +22,9 @@ define(function() {
   describe('Calculator', function() {
     beforeEach(function(done) {
       var self = this;
-      this.Adder = jasmine.createSpy('Adder');
-      this.adder = jasmine.createSpyObj('adder', ['add']);
-      this.Adder.and.returnValue(this.adder);
+      this.adder = jasmine.createSpyClass('Adder', ['add']);
 
-      mock('adder').using(this.Adder);
-
+      mock('adder').using(this.adder.constructor);
 
       require(['calculator'], function(Calculator) {
         self.calculator = new Calculator();
