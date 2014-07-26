@@ -21,9 +21,13 @@ require.config({
   }
 });
 
+var specs = [
+  '../spec/javascripts/app/calculator_spec',
+  '../spec/javascripts/app/adder_spec'
+]
+
 require(['boot'], function() {
-  require(['../spec/javascripts/app/spec_spec'], function(spec) {
-    console.log('howdy');
+  require(specs, function(spec) {
     window.executeTests();
   });
 });
