@@ -2,9 +2,9 @@ require.config({
   baseUrl: '../../app',
   paths: {
     'jquery': '../bower_components/jquery/dist/jquery',
-    'jasmine': '../bower_components/jasmine/lib/jasmine-core/jasmine',
-    'jasmine-html': '../bower_components/jasmine/lib/jasmine-core/jasmine-html',
-    'boot': '../bower_components/jasmine/lib/jasmine-core/boot/boot'
+    'jasmine': '/__jasmine__/jasmine',
+    'jasmine-html': '/__jasmine__/jasmine-html',
+    'boot': '/__boot__/boot'
   },
   shim: {
     'jasmine': {

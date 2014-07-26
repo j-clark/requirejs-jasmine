@@ -16,6 +16,6 @@ spec_dir:
 
 spec_helper: spec/javascripts/support/jasmine_helper.rb
 
-boot_dir:
+boot_dir: spec/javascripts/support
 
-boot_files:
+boot_files: ['boot.js']
