@@ -1,4 +1,4 @@
-define(['testUtils'], function(testUtils) {
+define(function() {
   describe('Calculator', function() {
     beforeEach(function(done) {
       var self = this;
@@ -6,15 +6,21 @@ define(['testUtils'], function(testUtils) {
       this.adder = jasmine.createSpyObj('adder', ['add']);
       this.Adder.and.returnValue(this.adder);
 
-      testUtils.stub('adder', this.Adder);
-      testUtils.loadWithCurrentStubs('calculator', function(Calculator) {
+      require.undef('adder');
+      define('adder', [], function() {
+        return self.Adder;
+      });
+
+      require(['calculator'], function(Calculator) {
         self.calculator = new Calculator();
         done();
       });
+
     });
 
     afterEach(function() {
-      testUtils.reset();
+      require.undef('adder');
+      require.undef('calculator');
     });
 
     describe('.add', function() {
