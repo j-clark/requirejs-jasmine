@@ -1,0 +1,10 @@
+{
+  "name": "require-testing",
+  "dependencies": {
+    "requirejs": "~2.1.5",
+    "jquery": ">= 1.8.0"
+  },
+  "devDependencies": {
+    "jasmine": "~2.0.1"
+  }
+}

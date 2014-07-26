@@ -1,0 +1,11 @@
+{
+  "name": "require-testing",
+  "description": "An awesome requirejs app",
+  "version": "0.0.0",
+  "engines": {
+    "node": ">= 0.8.0"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.1"
+  }
+}
