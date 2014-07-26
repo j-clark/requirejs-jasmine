@@ -1,4 +1,15 @@
 define(function() {
+  var mock = function(name) {
+    return {
+      using: function(spy) {
+        require.undef(name);
+        define(name, [], function() {
+          return spy;
+        });
+      }
+    };
+  };
+
   describe('Calculator', function() {
     beforeEach(function(done) {
       var self = this;
@@ -6,10 +17,8 @@ define(function() {
       this.adder = jasmine.createSpyObj('adder', ['add']);
       this.Adder.and.returnValue(this.adder);
 
-      require.undef('adder');
-      define('adder', [], function() {
-        return self.Adder;
-      });
+      mock('adder').using(this.Adder);
+
 
       require(['calculator'], function(Calculator) {
         self.calculator = new Calculator();
@@ -26,7 +35,7 @@ define(function() {
     describe('.add', function() {
       it('delegates to the adder', function() {
         this.calculator.add(2, 3);
-        expect(this.adder.add).toHaveBeenCalledWith(2, 3);
+        expect(this.adder.add).toHaveBeenCalledWith(2, 4);
       });
     });
   });
