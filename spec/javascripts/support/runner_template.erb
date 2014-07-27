@@ -6,8 +6,43 @@
 
     <link rel="stylesheet" type="text/css" href="__jasmine__/jasmine.css">
 
-    <!-- specRunner.js runs all of the tests -->
-    <script data-main="spec/javascripts/test-main.js" src="bower_components/requirejs/require.js"></script>
+    <script src="bower_components/requirejs/require.js"></script>
+    <script>
+      require.config({
+        baseUrl: '../../app',
+        paths: {
+          'jquery': '../bower_components/jquery/dist/jquery',
+          'jasmine': '/__jasmine__/jasmine',
+          'jasmine-html': '/__jasmine__/jasmine-html',
+          'boot': '/__boot__/boot'
+        },
+        shim: {
+          'jasmine': {
+            exports: 'window.jasmineRequire'
+          },
+          'jasmine-html': {
+            deps: ['jasmine'],
+            exports: 'window.jasmineRequire'
+          },
+          'boot': {
+            deps: ['jasmine', 'jasmine-html'],
+            exports: 'window.jasmineRequire'
+          }
+        }
+      });
+
+      var specs = [
+        <% Dir.glob('**/*.js').each do |spec_file| %>
+          <%= "'../spec/javascripts/app/#{spec_file}'," %>
+        <% end %>
+      ]
+
+      require(['boot'], function() {
+        require(specs, function(spec) {
+          window.executeTests();
+        });
+      });
+    </script>
   </head>
   <body>
   </body>
